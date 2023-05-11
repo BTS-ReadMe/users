@@ -20,7 +20,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     private long id;
     private String email;
-    private String password;
     private Collection<? extends GrantedAuthority> authorities;
     @Setter
     private Map<String, Object> attributes;
@@ -31,7 +30,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return new UserPrincipal(
             user.getId(),
             user.getEmail(),
-            user.getPassword(),
             authorities,
             null
         );
@@ -66,6 +64,11 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     @Override
     public String getName() {
         return String.valueOf(id);
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
     }
 
     @Override

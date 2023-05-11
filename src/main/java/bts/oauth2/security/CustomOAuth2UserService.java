@@ -68,7 +68,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .provider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))
                 .email(oAuth2UserInfo.getEmail())
                 .name(oAuth2UserInfo.getName())
-                .imageUrl(oAuth2UserInfo.getImageUrl())
                 .attributes(oAuth2UserInfo.getAttributes().toString())
                 .ip("127.0.0.1")
                 .build())
@@ -76,7 +75,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User updateUser(User user, OAuth2UserInfo oAuth2UserInfo) {
-        user.getSocialAuth().update(oAuth2UserInfo.getName(), oAuth2UserInfo.getImageUrl(), oAuth2UserInfo.getAttributes());
+        user.getSocialAuth().update(oAuth2UserInfo.getName(), oAuth2UserInfo.getAttributes());
         return user;
     }
 }

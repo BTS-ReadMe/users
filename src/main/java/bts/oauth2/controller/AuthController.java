@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 public class AuthController {
 
-    @GetMapping(value = "/token")
-    public String token(@RequestParam String token, @RequestParam String error) {
+    @GetMapping(value = "token")
+    public String token(@RequestParam(name = "code") String token, @RequestParam(name = "state", required = false) String error) {
         if (StringUtils.isNotBlank(error)) {
             return error;
         } else {

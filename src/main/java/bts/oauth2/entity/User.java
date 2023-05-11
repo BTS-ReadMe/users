@@ -1,5 +1,6 @@
 package bts.oauth2.entity;
 
+import bts.oauth2.util.BaseTimeEntity;
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -37,7 +38,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @SecondaryTables({
     @SecondaryTable(name = "social_auth", pkJoinColumns = @PrimaryKeyJoinColumn(name = "user_id"))
 })
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,9 +48,6 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -58,23 +56,12 @@ public class User {
     private String gender;
     private Integer point;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createDate", nullable = false, updatable = false)
-    private Date createDate;
-
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updateDate", nullable = false)
-    private Date updateDate;
-
     @Embedded
     @AttributeOverrides({
         @AttributeOverride(name = "providerId", column = @Column(table = "social_auth", name = "provider_id")),
         @AttributeOverride(name = "provider", column = @Column(table = "social_auth", name = "provider")),
         @AttributeOverride(name = "email", column = @Column(table = "social_auth", name = "email", nullable = false)),
         @AttributeOverride(name = "name", column = @Column(table = "social_auth", name = "name", nullable = false)),
-        @AttributeOverride(name = "imageUrl", column = @Column(table = "social_auth", name = "image_url", columnDefinition = "TEXT")),
         @AttributeOverride(name = "attributes", column = @Column(table = "social_auth", name = "attributes", columnDefinition = "TEXT")),
         @AttributeOverride(name = "ip", column = @Column(table = "social_auth", name = "ip", nullable = false)),
     })
