@@ -1,0 +1,9 @@
+# token 정보와 허용 redirect uri 정보
+
+app:
+  auth:
+    token-secret: btsTeam-token-secret
+    token-expiration-time: 86400000 # 1 day
+  oauth2:
+    authorized-redirect-uris:
+      - http://localhost:8080/auth/test #login

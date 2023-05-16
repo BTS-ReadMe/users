@@ -13,7 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry){
         registry
             .addMapping("/**")
-            .allowedOrigins("http://localhost:8080/auth/token") //, )
+            .allowedOriginPatterns("*") //, )
             .allowedMethods("GET", "POST", "PUT", "DELETE")
             .allowedHeaders("*") // 허용되는 헤더
             .allowCredentials(true) // 자격증명 허용

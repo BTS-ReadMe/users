@@ -25,12 +25,12 @@ public class NaverOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getMobile() {
-        return null;
+        return (String) attributes.get("mobile");
     }
 
     @Override
     public String gender() {
-        return null;
+        return (String) attributes.get("gender");
     }
 
 }
