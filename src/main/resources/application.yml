@@ -1,7 +1,7 @@
 spring:
 
   application:
-    name: user-service
+    name: users-service
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -43,5 +43,14 @@ spring:
       hibernate:
         enable_lazy_load_no_trans: true
         format_sql: true
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://43.200.189.164:8761/eureka
 
 secret_key: 4gNl2CR3e7pVnsQTyOVSXhRqKpE9A+ajHcDEorWbqbo=
