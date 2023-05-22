@@ -1,8 +1,8 @@
 package bts.users.user.service;
 
-import bts.users.user.requestObject.RequestSignup;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface UserService {
 
-    public String signup(RequestSignup requestSignup);
+    public String login(String code) throws JsonProcessingException;
 }

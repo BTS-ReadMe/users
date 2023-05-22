@@ -1,5 +1,5 @@
-package bts.users.user.responseObject;
-
-public class ResponseSignup {
-    String message;
-}
+//package bts.users.user.responseObject;
+//
+//public class ResponseSignup {
+//    String message;
+//}

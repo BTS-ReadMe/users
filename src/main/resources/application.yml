@@ -1,11 +1,34 @@
 spring:
+
   application:
-    name: jwt-service
+    name: user-service
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 1234
     url: jdbc:mysql://localhost:3306/user
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-name: kakao
+            client-id: cd2447cf90f5929ed98bc599d51f323d
+            client-secret: FEcBzqUhgg02OgA3R58yYXsU4Wb7TgGR
+            redirect-uri: http://localhost:8080
+            authorization-grant-type: authorization_code
+            scope:
+#              - account_email
+#              - profile_nickname
+#              - profile_image
+            client-authentication-method: POST
+        provider:
+          kakao:
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+#            user-name-attribute: id
 
   jpa:
     database: mysql
@@ -21,4 +44,4 @@ spring:
         enable_lazy_load_no_trans: true
         format_sql: true
 
-# secret_key: "1234"
+secret_key: 4gNl2CR3e7pVnsQTyOVSXhRqKpE9A+ajHcDEorWbqbo=
