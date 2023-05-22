@@ -28,10 +28,10 @@ public class SecurityConfig {
         throws Exception {
 
         http
-//            .cors()
-//            .and()
-//            .csrf()
-//            .disable()
+            .cors()
+            .and()
+            .csrf()
+            .disable()
             .authorizeRequests()
             .antMatchers("/v1/admin/**").hasRole("ADMIN")
             .antMatchers("/**").permitAll()
@@ -57,8 +57,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedHeader("*");
+//        configuration.addAllowedOriginPattern("*");
+//        configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
         configuration.addExposedHeader("Authorization");
