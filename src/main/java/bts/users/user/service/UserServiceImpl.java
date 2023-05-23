@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     private final OAuth2Service oAuth2Service;
 
     @Override
-    public ResponseEntity<Message> login(String code) throws JsonProcessingException {
+    public ResponseEntity<Message<ResponseLogin>> login(String code) throws JsonProcessingException {
 
         String accessToken = oAuth2Service.getAccessToken(code); // todo:예외처리api
         Map<String, String> userInfo = oAuth2Service.getUserInfo(accessToken);

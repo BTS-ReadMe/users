@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Message {
+public class Message<T>{
 
     private Status status;
     private String message;
-    private Object data;
+    private T data;
 }
