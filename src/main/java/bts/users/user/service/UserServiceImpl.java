@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
         }
 
         Message message = new Message();
-        message.setStatus(Status.OK);
-        message.setMessage("로그인 성공");
 
         ResponseLogin responseLogin = new ResponseLogin();
         responseLogin.setName(userInfo.get("name"));
