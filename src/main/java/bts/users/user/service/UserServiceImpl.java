@@ -6,18 +6,19 @@ import bts.users.user.model.User;
 import bts.users.user.repository.UserRepository;
 import bts.users.user.responseObject.Message;
 import bts.users.user.responseObject.ResponseLogin;
-import bts.users.user.responseObject.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Charsets;
 import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -49,6 +50,10 @@ public class UserServiceImpl implements UserService {
         headers.setContentType(new MediaType("application", "json", Charsets.UTF_8));
         headers.add("accessToken", accessToken);
         headers.add("uuid", uuid);
+
+        log.info(accessToken);
+        log.info(uuid);
+
 
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
     }
