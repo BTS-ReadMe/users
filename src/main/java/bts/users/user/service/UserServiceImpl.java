@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         headers.add("accessToken", accessToken);
         headers.add("uuid", uuid);
 
-        return new ResponseEntity<>(message, headers, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
     }
 
     public void signup(Map<String, String> userInfo, String uuid) {
