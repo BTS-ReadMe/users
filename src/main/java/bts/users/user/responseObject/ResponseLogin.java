@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public class ResponseLogin {
 
-    public String name;
-    public Integer age;
+    private String name;
+    private Integer age;
 
     public void setName(String name) {
         this.name = name;
