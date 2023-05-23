@@ -35,6 +35,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     private String gender;
     private Integer point;
     private String profileImg;
+    private String uuid;
 
     @Enumerated(EnumType.STRING)
     private Role role;
