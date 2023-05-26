@@ -38,7 +38,7 @@ public class SecurityConfig {
             .anyRequest()
             .authenticated()
             .and()
-            .sessionManagement() // 세션관리설정
+            .sessionManagement() // 세션관리설정no
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 무상태로 설정
             .and()
             .authenticationProvider(authenticationProvider) //
