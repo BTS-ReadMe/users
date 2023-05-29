@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
                 .role(Role.USER)
                 .build()
         ));
+        headers.add("uuid", uuid);
 
         Message message = new Message();
         ResponseLogin responseLogin = new ResponseLogin();
