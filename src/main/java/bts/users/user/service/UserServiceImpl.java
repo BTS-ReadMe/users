@@ -57,6 +57,7 @@ public class UserServiceImpl implements UserService {
         ResponseLogin responseLogin = new ResponseLogin();
         responseLogin.setName(userInfo.get("name"));
         responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
+        responseLogin.setPoint(userRepository.findByUuid(uuid).getPoint());
         message.setData(responseLogin);
 
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
