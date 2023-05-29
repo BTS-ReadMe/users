@@ -1,6 +1,6 @@
 package bts.users.user.service.consumer;
 
-import bts.users.user.dto.ChargePointDto;
+import bts.users.dto.ChargePointDto;
 import bts.users.user.model.User;
 import bts.users.user.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
