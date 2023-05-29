@@ -29,15 +29,19 @@ public class UserServiceImpl implements UserService {
     private final JwtService jwtService;
 
     @Override
-    public ResponseEntity<Message<ResponseLogin>> login(String code) throws JsonProcessingException {
+    public ResponseEntity<Message<ResponseLogin>> login(String code)
+        throws JsonProcessingException {
 
         String accessToken = oAuth2Service.getAccessToken(code); // todo:예외처리api
         Map<String, String> userInfo = oAuth2Service.getUserInfo(accessToken);
 
-        String uuid = UUID.randomUUID().toString();
-
-        if (userRepository.findByEmail(userInfo.get("email")) == null) {
+        User user = userRepository.findByEmail(userInfo.get("email"));
+        String uuid;
+        if (user == null) {
+            uuid = UUID.randomUUID().toString();
             signup(userInfo, uuid);
+        } else {
+            uuid = user.getUuid();
         }
 
         HttpHeaders headers = new HttpHeaders();
