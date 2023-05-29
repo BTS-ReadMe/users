@@ -1,5 +1,6 @@
 package bts.users.user.service;
 
+import bts.users.config.JwtService;
 import bts.users.oauth2.service.OAuth2Service;
 import bts.users.user.model.Role;
 import bts.users.user.model.User;
@@ -25,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final OAuth2Service oAuth2Service;
+    private final JwtService jwtService;
 
     @Override
     public ResponseEntity<Message<ResponseLogin>> login(String code) throws JsonProcessingException {
@@ -38,22 +40,20 @@ public class UserServiceImpl implements UserService {
             signup(userInfo, uuid);
         }
 
-        Message message = new Message();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charsets.UTF_8));
+        headers.add("accessToken", jwtService.generateToken(
+            User.builder()
+                .uuid(uuid)
+                .role(Role.USER)
+                .build()
+        ));
 
+        Message message = new Message();
         ResponseLogin responseLogin = new ResponseLogin();
         responseLogin.setName(userInfo.get("name"));
         responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
-
         message.setData(responseLogin);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json", Charsets.UTF_8));
-        headers.add("accessToken", accessToken);
-        headers.add("uuid", uuid);
-
-        log.info(accessToken);
-        log.info(uuid);
-
 
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
     }

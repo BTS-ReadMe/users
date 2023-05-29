@@ -28,22 +28,22 @@ public class SecurityConfig {
         throws Exception {
 
         http
-            .cors()
-            .and()
-            .csrf()
-            .disable()
-            .authorizeRequests()
-            .antMatchers("/v1/admin/**").hasRole("ADMIN")
-            .antMatchers("/**").permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
+//            .cors()
+//            .and()
+//            .csrf()
+//            .disable()
+//            .authorizeRequests()
+//            .antMatchers("/v1/admin/**").hasRole("ADMIN")
+//            .antMatchers("/**").permitAll()
+//            .anyRequest()
+//            .authenticated()
+//            .and()
             .sessionManagement() // 세션관리설정
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 무상태로 설정
-            .and()
-            .authenticationProvider(authenticationProvider) //
-            .addFilterBefore(jwtAuthenticationFilter,
-                UsernamePasswordAuthenticationFilter.class); //
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 무상태로 설정
+//            .and()
+//            .authenticationProvider(authenticationProvider) //
+//            .addFilterBefore(jwtAuthenticationFilter,
+//                UsernamePasswordAuthenticationFilter.class); //
 
 //        http.logout()
 //            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

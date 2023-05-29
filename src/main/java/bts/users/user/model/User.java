@@ -45,6 +45,14 @@ public class User extends BaseTimeEntity implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    public String getUserUuid(){
+        return uuid;
+    }
+
+    public Role getUserRole(){
+        return role;
+    }
+
     @Override
     public String getPassword() {
         return null;
@@ -52,7 +60,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return name;
     }
 
     @Override
