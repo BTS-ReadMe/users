@@ -1,5 +1,6 @@
 package bts.users.user.service;
 
+import bts.users.config.JwtService;
 import bts.users.oauth2.service.OAuth2Service;
 import bts.users.user.model.Role;
 import bts.users.user.model.User;
@@ -25,35 +26,39 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final OAuth2Service oAuth2Service;
+    private final JwtService jwtService;
 
     @Override
-    public ResponseEntity<Message<ResponseLogin>> login(String code) throws JsonProcessingException {
+    public ResponseEntity<Message<ResponseLogin>> login(String code)
+        throws JsonProcessingException {
 
         String accessToken = oAuth2Service.getAccessToken(code); // todo:예외처리api
         Map<String, String> userInfo = oAuth2Service.getUserInfo(accessToken);
 
-        String uuid = UUID.randomUUID().toString();
-
-        if (userRepository.findByEmail(userInfo.get("email")) == null) {
+        User user = userRepository.findByEmail(userInfo.get("email"));
+        String uuid;
+        if (user == null) {
+            uuid = UUID.randomUUID().toString();
             signup(userInfo, uuid);
+        } else {
+            uuid = user.getUuid();
         }
-
-        Message message = new Message();
-
-        ResponseLogin responseLogin = new ResponseLogin();
-        responseLogin.setName(userInfo.get("name"));
-        responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
-
-        message.setData(responseLogin);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(new MediaType("application", "json", Charsets.UTF_8));
-        headers.add("accessToken", accessToken);
-        headers.add("uuid", uuid);
+        headers.add("accessToken", jwtService.generateToken(
+            User.builder()
+                .uuid(uuid)
+                .role(Role.USER)
+                .build()
+        ));
 
-        log.info(accessToken);
-        log.info(uuid);
-
+        Message message = new Message();
+        ResponseLogin responseLogin = new ResponseLogin();
+        responseLogin.setName(userInfo.get("name"));
+        responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
+        responseLogin.setPoint(userRepository.findByUuid(uuid).getPoint());
+        message.setData(responseLogin);
 
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
     }

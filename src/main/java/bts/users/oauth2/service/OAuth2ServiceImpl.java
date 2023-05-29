@@ -50,18 +50,22 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(
-            TOKEN_URI,
-            HttpMethod.POST,
-            request,
-            String.class
-        ); //try catch 넣기 + 주소를 넣어줘야됨(response가안올떄)
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                TOKEN_URI,
+                HttpMethod.POST,
+                request,
+                String.class
+            );
 
-        String responseBody = response.getBody();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(responseBody);
-        return jsonNode.get("access_token").asText();
+            String responseBody = response.getBody();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(responseBody);
+            return jsonNode.get("access_token").asText();
 
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
