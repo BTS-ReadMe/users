@@ -1,4 +1,4 @@
-package bts.users.user.dto;
+package bts.users.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

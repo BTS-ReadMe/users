@@ -44,16 +44,20 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.point += point;
     }
 
+    public void purchaseEpisode() {
+        this.point -= 100;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public String getUserUuid(){
+    public String getUserUuid() {
         return uuid;
     }
 
-    public Role getUserRole(){
+    public Role getUserRole() {
         return role;
     }
 

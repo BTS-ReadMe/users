@@ -4,6 +4,7 @@ import bts.users.user.responseObject.Message;
 import bts.users.user.responseObject.ResponseLogin;
 import bts.users.user.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,30 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/user")
-public class UserController {
+public class UserController { //todo : try catch를 controller말고 service에서 처리하기
 
     private final UserService userService;
 
+    @Operation(summary = "로그인", description = "로그인 하기", tags = {"로그인"})
     @GetMapping("/login")
     public ResponseEntity<Message<ResponseLogin>> login(@RequestParam("code") String code) {
         try {
             return userService.login(code);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    @GetMapping("/test")
-    public String test(Authentication authentication) {
-
-        try {
-            final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            log.info(userDetails.getAuthorities().toString());
-            return userDetails.getUsername();
-
-        } catch (Exception e) {
-//            throw new RuntimeException(e);
-            return null;
         }
     }
 
