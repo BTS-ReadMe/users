@@ -2,10 +2,12 @@ package bts.users.user.service;
 
 import bts.users.config.JwtService;
 import bts.users.oauth2.service.OAuth2Service;
+import bts.users.requestObject.RequestAdminLogin;
 import bts.users.user.model.Role;
 import bts.users.user.model.User;
 import bts.users.user.repository.UserRepository;
 import bts.users.user.responseObject.Message;
+import bts.users.user.responseObject.ResponseAdminLogin;
 import bts.users.user.responseObject.ResponseLogin;
 import com.google.common.base.Charsets;
 import java.util.HashMap;
@@ -68,6 +70,37 @@ public class UserServiceImpl implements UserService {
         message.setData(responseLogin);
 
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
+    }
+
+    @Override
+    public ResponseEntity<Message<ResponseAdminLogin>> adminLogin(
+        RequestAdminLogin requestAdminLogin) {
+
+        String adminId = requestAdminLogin.getId();
+        String adminPassword = requestAdminLogin.getPassword();
+
+        HttpHeaders headers = new HttpHeaders();
+        Message message = new Message();
+
+        User admin = userRepository.findByEmail(adminId);
+        if (admin != null && admin.getUuid().equals(adminPassword)) {
+
+            headers.setContentType(new MediaType("application", "json", Charsets.UTF_8));
+            headers.add("accessToken", jwtService.generateToken(
+                User.builder()
+                    .role(Role.ADMIN)
+                    .uuid(null)
+                    .build()
+            ));
+
+            ResponseAdminLogin responseLogin = new ResponseAdminLogin();
+            responseLogin.setName(admin.getName());
+            message.setData(responseLogin);
+
+            return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).headers(headers).body(message);
+        }
     }
 
     public void signup(Map<String, String> userInfo, String uuid) {
