@@ -7,8 +7,8 @@ import bts.users.user.model.User;
 import bts.users.user.repository.UserRepository;
 import bts.users.user.responseObject.Message;
 import bts.users.user.responseObject.ResponseLogin;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Charsets;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +29,17 @@ public class UserServiceImpl implements UserService {
     private final JwtService jwtService;
 
     @Override
-    public ResponseEntity<Message<ResponseLogin>> login(String code)
-        throws JsonProcessingException {
+    public ResponseEntity<Message<ResponseLogin>> login(String code) {
 
-        String accessToken = oAuth2Service.getAccessToken(code); // todo:예외처리api
-        Map<String, String> userInfo = oAuth2Service.getUserInfo(accessToken);
+        String accessToken;
+        Map<String, String> userInfo = new HashMap<>();
+
+        try {
+            accessToken = oAuth2Service.getAccessToken(code);
+            userInfo = oAuth2Service.getUserInfo(accessToken);
+        } catch (Exception e) {
+
+        }
 
         User user = userRepository.findByEmail(userInfo.get("email"));
         String uuid;
