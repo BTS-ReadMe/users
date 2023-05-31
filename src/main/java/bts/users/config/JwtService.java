@@ -29,20 +29,21 @@ public class JwtService {
 
     private final UserRepository userRepository;
 
-	public Authentication getAuthentication(String token){
-		Claims claims = parseClaims(token);
-		return new UsernamePasswordAuthenticationToken(token, claims);
-	}
+    public Authentication getAuthentication(String token) {
+        Claims claims = parseClaims(token);
+        return new UsernamePasswordAuthenticationToken(token, claims);
+    }
 
-	private Claims parseClaims(String token){
-		try{
-			return Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
-		}catch (ExpiredJwtException e){
-			return e.getClaims();
-		}
-	}
+    private Claims parseClaims(String token) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token)
+                .getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
+    }
 
-//        public String generateToken(UserDetails userDetail) {
+    //        public String generateToken(UserDetails userDetail) {
     public String generateToken(User user) {
 
         Claims claims = Jwts.claims() //payload에 들어가는 정보
@@ -50,13 +51,10 @@ public class JwtService {
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)); //1h
 
-
         claims.put("role", user.getUserRole());
-        claims.put("uuid", user.getUuid());
-
-        System.out.println(claims.get("role"));
-        System.out.println(claims.get("uuid"));
-
+        if (user.getUuid() != null) {
+            claims.put("uuid", user.getUuid());
+        }
 
         return Jwts.builder()
             .setHeaderParam("type", "jwt")
@@ -65,7 +63,7 @@ public class JwtService {
             .compact();
     }
 
-//    public Boolean isTokenValid(String jwt, UserDetails userDetails) {
+    //    public Boolean isTokenValid(String jwt, UserDetails userDetails) {
     public Boolean isTokenValid(String jwt, User user) {
         final String userName = extractUsername(jwt);
 //        return userDetails.getUsername().equals(userName) && !isTokenExpired(jwt);
@@ -76,7 +74,9 @@ public class JwtService {
         return extractExpiration(jwt).before(new Date());
     }
 
-    public String extractUsername(String jwt) { return extractClaim(jwt, Claims::getSubject); }
+    public String extractUsername(String jwt) {
+        return extractClaim(jwt, Claims::getSubject);
+    }
 
     private Date extractExpiration(String jwt) {
         return extractClaim(jwt, Claims::getExpiration);
