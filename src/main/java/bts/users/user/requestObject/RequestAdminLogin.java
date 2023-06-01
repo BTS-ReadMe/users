@@ -1,4 +1,4 @@
-package bts.users.requestObject;
+package bts.users.user.requestObject;
 
 import lombok.Getter;
 

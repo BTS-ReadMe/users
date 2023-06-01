@@ -1,4 +1,4 @@
-package bts.users.responseObject;
+package bts.users.user.responseObject;
 
 public enum Status {
 

@@ -2,13 +2,13 @@ package bts.users.user.service;
 
 import bts.users.config.JwtService;
 import bts.users.oauth2.service.OAuth2Service;
-import bts.users.requestObject.RequestAdminLogin;
+import bts.users.user.requestObject.RequestAdminLogin;
 import bts.users.user.model.Role;
 import bts.users.user.model.User;
 import bts.users.user.repository.UserRepository;
-import bts.users.responseObject.Message;
-import bts.users.responseObject.ResponseAdminLogin;
-import bts.users.responseObject.ResponseLogin;
+import bts.users.user.responseObject.Message;
+import bts.users.user.responseObject.ResponseAdminLogin;
+import bts.users.user.responseObject.ResponseLogin;
 import com.google.common.base.Charsets;
 import java.util.HashMap;
 import java.util.Map;

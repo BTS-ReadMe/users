@@ -1,7 +1,7 @@
 package bts.users.user.controller;
 
-import bts.users.responseObject.Message;
-import bts.users.responseObject.ResponseLogin;
+import bts.users.user.responseObject.Message;
+import bts.users.user.responseObject.ResponseLogin;
 import bts.users.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
