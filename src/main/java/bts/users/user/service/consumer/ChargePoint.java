@@ -1,6 +1,6 @@
-package bts.users.user.service.consumer;
-
-public interface ChargePoint {
-
-    public void saveChargePoint(String kafkaMessage);
-}
+//package bts.users.user.service.consumer;
+//
+//public interface ChargePoint {
+//
+//    public void saveChargePoint(String kafkaMessage);
+//}

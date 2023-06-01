@@ -9,12 +9,12 @@ import lombok.ToString;
 @ToString
 public class ChargePointDto {
 
-    private String uuid;
+    private String id;
     private Integer point;
 
     @JsonCreator
-    public ChargePointDto(@JsonProperty("uuid") String uuid, @JsonProperty("point") Integer point) {
-        this.uuid = uuid;
+    public ChargePointDto(@JsonProperty("id") String id, @JsonProperty("point") Integer point) {
+        this.id = id;
         this.point = point;
     }
 }
