@@ -7,7 +7,7 @@ import bts.users.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ public class AdminController { // 관리자는 oauth로그인 없이 id, pw입�
     private final UserService userService;
 
     @Operation(summary = "로그인", description = "로그인 하기", tags = {"로그인"})
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<Message<ResponseAdminLogin>> login(@RequestBody RequestAdminLogin requestAdminLogin) {
         return userService.adminLogin(requestAdminLogin);
     }
