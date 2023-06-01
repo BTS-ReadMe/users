@@ -23,6 +23,7 @@ public class UserController { //todo : try catch를 controller말고 service에�
     @Operation(summary = "로그인", description = "로그인 하기", tags = {"로그인"})
     @PostMapping("/login")
     public ResponseEntity<Message<ResponseLogin>> login(@RequestParam("code") String code) {
+        log.info("--------------");
         return userService.login(code);
     }
 
