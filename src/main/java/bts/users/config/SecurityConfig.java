@@ -19,11 +19,11 @@ public class SecurityConfig {
 
         http
             .sessionManagement() // 세션관리설정
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS); // 무상태로 설정
-//            .and()
-//            .authorizeRequests()
-//            .antMatchers("/**") // 모든 경로에 대해
-//            .permitAll(); // 접근 허용
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 무상태로 설정
+            .and()
+            .authorizeRequests()
+            .antMatchers("/**") // 모든 경로에 대해
+            .permitAll(); // 접근 허용
 
         return http.build();
     }
