@@ -49,7 +49,7 @@ public class JwtService {
         Claims claims = Jwts.claims() //payload에 들어가는 정보
             .setSubject("accessToken")
             .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)); //1h
+            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12)); //12h
 
         claims.put("role", user.getUserRole());
         if (user.getUuid() != null) {
