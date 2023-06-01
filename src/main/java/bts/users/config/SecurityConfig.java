@@ -18,6 +18,7 @@ public class SecurityConfig {
         throws Exception {
 
         http
+            .csrf().disable()
             .sessionManagement() // 세션관리설정
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 무상태로 설정
             .and()
