@@ -2,7 +2,7 @@ package bts.users.user.service;
 
 import bts.users.config.JwtService;
 import bts.users.oauth2.service.OAuth2Service;
-import bts.users.requestObject.RequestAdminLogin;
+import bts.users.user.requestObject.RequestAdminLogin;
 import bts.users.user.model.Role;
 import bts.users.user.model.User;
 import bts.users.user.repository.UserRepository;
