@@ -100,6 +100,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         userInfo.put("age", age.toString());
 
         userInfo.put("gender", jsonNode.get("gender").asText());
+        userInfo.put("nickname", jsonNode.get("profile").get("nickname").asText());
         userInfo.put("profileImg", jsonNode.get("profile").get("profile_image_url").asText());
 
         return userInfo;

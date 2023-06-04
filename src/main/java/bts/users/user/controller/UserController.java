@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/user")
-public class UserController { //todo : try catch를 controller말고 service에서 처리하기
+public class UserController {
 
     private final UserService userService;
 
