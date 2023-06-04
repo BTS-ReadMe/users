@@ -8,6 +8,7 @@ import lombok.Setter;
 public class ResponseLogin {
 
     private String name;
+    private String nickname;
     private Integer age;
     private Integer point;
 

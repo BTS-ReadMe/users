@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
         Message message = new Message();
         ResponseLogin responseLogin = new ResponseLogin();
         responseLogin.setName(userInfo.get("name"));
+        responseLogin.setNickname(userInfo.get("nickname"));
         responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
         responseLogin.setPoint(userRepository.findByUuid(uuid).getPoint());
         message.setData(responseLogin);
@@ -107,6 +108,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(User.builder()
             .email(userInfo.get("email"))
             .name(userInfo.get("name"))
+            .nickname(userInfo.get("nickname"))
             .phone(userInfo.get("phone"))
             .age(Integer.valueOf(userInfo.get("age")))
             .gender(userInfo.get("gender"))
