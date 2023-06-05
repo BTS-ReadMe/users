@@ -1,15 +1,16 @@
 package bts.users.dto;
 
 import java.time.LocalDateTime;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 public class ChargePointResultDto {
 
     private String id;
+    private String uuid;
     private Integer total;
     private Integer point;
-    private LocalDateTime chargeDate;
+    private LocalDateTime chargedDate;
 }

@@ -1,27 +1,27 @@
-package bts.users.user.service.producer;
+package bts.users.user.messageQueue.producer;
 
 import bts.users.dto.PurchaseEpisodeResultDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SendPurchaseEpisodeResultService {
+public class PurchaseEpisodeResultProducer {
 
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public void sendPurchaseResultEpisode(PurchaseEpisodeResultDto purchaseEpisodeResultDto) {
+
         ObjectMapper mapper = new ObjectMapper();
-        String data = "";
+        mapper.registerModule(new JavaTimeModule());
 
         try {
-            data = mapper.writeValueAsString(purchaseEpisodeResultDto);
+            String data = mapper.writeValueAsString(purchaseEpisodeResultDto);
+            kafkaTemplate.send("purchaseEpisodeResult", data);
         } catch (Exception e) {
-            return;
         }
-
-        kafkaTemplate.send("purchaseEpisodeResult", data);
     }
 }
