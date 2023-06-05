@@ -91,17 +91,28 @@ public class OAuth2ServiceImpl implements OAuth2Service {
 
         Map<String, String> userInfo = new HashMap<>();
 
+//        userInfo.put("email", jsonNode.get("email").asText());
+//        userInfo.put("name", jsonNode.get("name").asText());
+//        userInfo.put("phone", jsonNode.get("phone_number").asText());
+//
+//        Integer age = (Integer) Year.now().getValue()
+//            - Integer.valueOf(jsonNode.get("birthyear").asText()) + 1;
+//        userInfo.put("age", age.toString());
+//
+//        userInfo.put("gender", jsonNode.get("gender").asText());
+//        userInfo.put("nickname", jsonNode.get("profile").get("nickname").asText());
+//        userInfo.put("profileImg", jsonNode.get("profile").get("profile_image_url").asText());
+
         userInfo.put("email", jsonNode.get("email").asText());
-        userInfo.put("name", jsonNode.get("name").asText());
-        userInfo.put("phone", jsonNode.get("phone_number").asText());
-
-        Integer age = (Integer) Year.now().getValue()
-            - Integer.valueOf(jsonNode.get("birthyear").asText()) + 1;
-        userInfo.put("age", age.toString());
-
-        userInfo.put("gender", jsonNode.get("gender").asText());
         userInfo.put("nickname", jsonNode.get("profile").get("nickname").asText());
         userInfo.put("profileImg", jsonNode.get("profile").get("profile_image_url").asText());
+
+        userInfo.put("gender", (jsonNode.get("gender_needs_agreement").asText().equals("false") ?
+            jsonNode.get("gender").asText() : null));
+        userInfo.put("age_range", (jsonNode.get("age_range_needs_agreement").asText().equals("false")?
+            jsonNode.get("age_range").asText() : null));
+        userInfo.put("birthday", (jsonNode.get("birthday_needs_agreement").asText().equals("false")?
+            jsonNode.get("birthday").asText() : null));
 
         return userInfo;
     }

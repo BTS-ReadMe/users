@@ -7,10 +7,14 @@ import lombok.Setter;
 @Setter
 public class ResponseLogin {
 
-    private String name;
+//    private String name;
+//    private Integer age;
+    private String email;
     private String nickname;
     private String profileImg;
-    private Integer age;
+    private String gender;
+    private String age_range;
+    private String birthday;
     private Integer point;
 
 }

@@ -9,6 +9,7 @@ import bts.users.user.repository.UserRepository;
 import bts.users.user.responseObject.Message;
 import bts.users.user.responseObject.ResponseAdminLogin;
 import bts.users.user.responseObject.ResponseLogin;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Charsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,8 +38,11 @@ public class UserServiceImpl implements UserService {
         Map<String, String> userInfo = new HashMap<>();
 
         try {
+            System.out.println(1);
             accessToken = oAuth2Service.getAccessToken(code);
+            System.out.println(2);
             userInfo = oAuth2Service.getUserInfo(accessToken);
+            System.out.println(3);
         } catch (Exception e) {
 
         }
@@ -64,10 +68,17 @@ public class UserServiceImpl implements UserService {
 
         Message message = new Message();
         ResponseLogin responseLogin = new ResponseLogin();
-        responseLogin.setName(userInfo.get("name"));
+//        responseLogin.setName(userInfo.get("name"));
+//        responseLogin.setNickname(userInfo.get("nickname"));
+//        responseLogin.setProfileImg(userInfo.get("profileImg"));
+//        responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
+//        responseLogin.setPoint(userRepository.findByUuid(uuid).getPoint());
+        responseLogin.setEmail(userInfo.get("email"));
         responseLogin.setNickname(userInfo.get("nickname"));
         responseLogin.setProfileImg(userInfo.get("profileImg"));
-        responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
+        responseLogin.setGender(userInfo.get("gender"));
+        responseLogin.setAge_range(userInfo.get("age_range"));
+        responseLogin.setBirthday(userInfo.get("birthday"));
         responseLogin.setPoint(userRepository.findByUuid(uuid).getPoint());
         message.setData(responseLogin);
 
@@ -104,6 +115,7 @@ public class UserServiceImpl implements UserService {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).headers(headers).body(message);
         }
     }
+
 
     public void signup(Map<String, String> userInfo, String uuid) {
         userRepository.save(User.builder()
