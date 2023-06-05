@@ -110,7 +110,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         userInfo.put("gender", (jsonNode.get("gender_needs_agreement").asText().equals("false") ?
             jsonNode.get("gender").asText() : null));
         userInfo.put("age_range", (jsonNode.get("age_range_needs_agreement").asText().equals("false")?
-            jsonNode.get("age_range").asText() : null));
+            jsonNode.get("age_range").asText() : "20-29")); // temporary
         userInfo.put("birthday", (jsonNode.get("birthday_needs_agreement").asText().equals("false")?
             jsonNode.get("birthday").asText() : null));
 
