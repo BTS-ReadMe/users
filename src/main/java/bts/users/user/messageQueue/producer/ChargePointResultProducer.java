@@ -1,29 +1,30 @@
-package bts.users.user.service.producer;
+package bts.users.user.messageQueue.producer;
 
 import bts.users.dto.ChargePointResultDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class SendChargePointResult {
+public class ChargePointResultProducer {
 
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    public void sendResult(ChargePointResultDto chargePointResultDto) {
+    public void sendChargePointResult(ChargePointResultDto chargePointResultDto) {
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        String data = "";
 
         try {
-            data = mapper.writeValueAsString(chargePointResultDto);
+            String data = mapper.writeValueAsString(chargePointResultDto);
+            kafkaTemplate.send("chargePointResult", data);
         } catch (Exception e) {
-            return;
+            log.info(e.toString());
         }
-
-        kafkaTemplate.send("chargePointResult", data);
     }
 }
