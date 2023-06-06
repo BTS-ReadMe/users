@@ -29,13 +29,12 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Long id;
 
     private String email;
-    private String name;
     private String nickname;
-    private String phone;
-    private Integer age;
+    private String age_range;
     private String gender;
     private Integer point;
     private String profileImg;
+    private String birthday;
     private String uuid;
 
     @Enumerated(EnumType.STRING)
@@ -69,7 +68,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return null;
     }
 
     @Override

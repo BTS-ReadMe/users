@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ResponseAdminLogin {
 
-    private String name;
+    private String nickname;
 }

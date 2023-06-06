@@ -38,13 +38,10 @@ public class UserServiceImpl implements UserService {
         Map<String, String> userInfo = new HashMap<>();
 
         try {
-            System.out.println(1);
             accessToken = oAuth2Service.getAccessToken(code);
-            System.out.println(2);
             userInfo = oAuth2Service.getUserInfo(accessToken);
-            System.out.println(3);
         } catch (Exception e) {
-
+            return null;
         }
 
         User user = userRepository.findByEmail(userInfo.get("email"));
@@ -68,11 +65,6 @@ public class UserServiceImpl implements UserService {
 
         Message message = new Message();
         ResponseLogin responseLogin = new ResponseLogin();
-//        responseLogin.setName(userInfo.get("name"));
-//        responseLogin.setNickname(userInfo.get("nickname"));
-//        responseLogin.setProfileImg(userInfo.get("profileImg"));
-//        responseLogin.setAge(Integer.valueOf(userInfo.get("age")));
-//        responseLogin.setPoint(userRepository.findByUuid(uuid).getPoint());
         responseLogin.setEmail(userInfo.get("email"));
         responseLogin.setNickname(userInfo.get("nickname"));
         responseLogin.setProfileImg(userInfo.get("profileImg"));
@@ -106,9 +98,9 @@ public class UserServiceImpl implements UserService {
                     .build()
             ));
 
-            ResponseAdminLogin responseLogin = new ResponseAdminLogin();
-            responseLogin.setName(admin.getName());
-            message.setData(responseLogin);
+            ResponseAdminLogin responseAdminLogin = new ResponseAdminLogin();
+            responseAdminLogin.setNickname(admin.getNickname());
+            message.setData(responseAdminLogin);
 
             return ResponseEntity.status(HttpStatus.OK).headers(headers).body(message);
         } else {
@@ -120,13 +112,12 @@ public class UserServiceImpl implements UserService {
     public void signup(Map<String, String> userInfo, String uuid) {
         userRepository.save(User.builder()
             .email(userInfo.get("email"))
-            .name(userInfo.get("name"))
             .nickname(userInfo.get("nickname"))
-            .phone(userInfo.get("phone"))
-            .age(Integer.valueOf(userInfo.get("age")))
+            .age_range(userInfo.get("age_range"))
             .gender(userInfo.get("gender"))
             .point(0)
             .profileImg(userInfo.get("profileImg"))
+            .birthday(userInfo.get("birthday"))
             .uuid(uuid)
             .role(Role.USER)
             .build());
