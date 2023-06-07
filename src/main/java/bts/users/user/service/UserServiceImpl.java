@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @Service
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
             accessToken = oAuth2Service.getAccessToken(code);
             userInfo = oAuth2Service.getUserInfo(accessToken);
         } catch (Exception e) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         User user = userRepository.findByEmail(userInfo.get("email"));
