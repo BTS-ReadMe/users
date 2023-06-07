@@ -66,7 +66,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
             return jsonNode.get("access_token").asText();
 
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "accessToken 받기 실패");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -94,7 +94,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         try {
             jsonNode = objectMapper.readTree(responseBody).get("kakao_account");
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "user 정보 받기 실패");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         Map<String, String> userInfo = new HashMap<>();

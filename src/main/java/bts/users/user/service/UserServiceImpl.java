@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             accessToken = oAuth2Service.getAccessToken(code);
             userInfo = oAuth2Service.getUserInfo(accessToken);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "oauth2 서비스 실패");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         User user = userRepository.findByEmail(userInfo.get("email"));
