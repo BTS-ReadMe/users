@@ -7,6 +7,7 @@ import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OAuth2ServiceImpl implements OAuth2Service {
@@ -66,6 +68,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
             return jsonNode.get("access_token").asText();
 
         } catch (Exception e) {
+            log.info("fail to get accessToken");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
@@ -94,6 +97,7 @@ public class OAuth2ServiceImpl implements OAuth2Service {
         try {
             jsonNode = objectMapper.readTree(responseBody).get("kakao_account");
         } catch (Exception e) {
+            log.info("fail to get userInfo");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

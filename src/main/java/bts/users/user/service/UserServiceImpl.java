@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
             accessToken = oAuth2Service.getAccessToken(code);
             userInfo = oAuth2Service.getUserInfo(accessToken);
         } catch (Exception e) {
+            log.info("fail to use oauth2 service");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
