@@ -8,6 +8,7 @@ import bts.users.user.model.User;
 import bts.users.user.repository.UserRepository;
 import bts.users.user.responseObject.Message;
 import bts.users.user.responseObject.ResponseAdminLogin;
+import bts.users.user.responseObject.ResponseGetPoint;
 import bts.users.user.responseObject.ResponseLogin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Charsets;
@@ -108,6 +109,20 @@ public class UserServiceImpl implements UserService {
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).headers(headers).body(message);
         }
+    }
+
+    @Override
+    public ResponseEntity<Message<ResponseGetPoint>> getPoint(String uuid) {
+
+        Message message = new Message();
+        ResponseGetPoint responseGetPoint =
+            ResponseGetPoint.builder()
+                .uuid(uuid)
+                .point(userRepository.findByUuid(uuid).getPoint())
+                .build();
+        message.setData(responseGetPoint);
+
+        return ResponseEntity.status(HttpStatus.OK).body(message);
     }
 
 
