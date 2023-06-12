@@ -1,18 +1,20 @@
 package bts.users.user.responseObject;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class ResponseLogin {
 
-    private String name;
-    private Integer age;
+//    private String name;
+//    private Integer age;
+    private String email;
+    private String nickname;
+    private String profileImg;
+    private String gender;
+    private String age_range;
+    private String birthday;
+    private Integer point;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
 }

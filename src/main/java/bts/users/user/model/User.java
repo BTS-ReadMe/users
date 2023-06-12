@@ -29,20 +29,36 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Long id;
 
     private String email;
-    private String name;
-    private String phone;
-    private Integer age;
+    private String nickname;
+    private String age_range;
     private String gender;
     private Integer point;
     private String profileImg;
+    private String birthday;
     private String uuid;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public void chargePoint(Integer point) {
+        this.point += point;
+    }
+
+    public void purchaseEpisode() {
+        this.point -= 100;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    public String getUserUuid() {
+        return uuid;
+    }
+
+    public Role getUserRole() {
+        return role;
     }
 
     @Override
@@ -52,7 +68,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return null;
     }
 
     @Override
