@@ -78,7 +78,7 @@ public class JwtService {
         return extractClaim(jwt, Claims::getSubject);
     }
 
-    private Date extractExpiration(String jwt) {
+    public Date extractExpiration(String jwt) {
         return extractClaim(jwt, Claims::getExpiration);
     }
 

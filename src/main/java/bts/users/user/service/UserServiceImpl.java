@@ -56,15 +56,17 @@ public class UserServiceImpl implements UserService {
             uuid = user.getUuid();
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("application", "json", Charsets.UTF_8));
-        headers.add("accessToken", jwtService.generateToken(
+        String token = jwtService.generateToken(
             User.builder()
                 .uuid(uuid)
                 .role(Role.USER)
-                .build()
-        ));
+                .build());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(new MediaType("application", "json", Charsets.UTF_8));
+        headers.add("accessToken", token);
         headers.add("uuid", uuid);
+        headers.add("expiration", String.valueOf(jwtService.extractExpiration(token)));
 
         Message message = new Message();
         ResponseLogin responseLogin = new ResponseLogin();
